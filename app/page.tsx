@@ -45,13 +45,13 @@ export default function Home() {
 
   useEffect(() => {
     const SR = typeof window !== "undefined"
-      ? (window.SpeechRecognition || (window as any).webkitSpeechRecognition)
+      ? ((window as any).SpeechRecognition || (window as any).webkitSpeechRecognition)
       : null;
     setSpeechSupported(!!SR);
   }, []);
 
   const toggleListening = useCallback(() => {
-    const SR = window.SpeechRecognition || (window as any).webkitSpeechRecognition;
+    const SR = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     if (!SR) return;
 
     if (isListening) {
@@ -60,7 +60,7 @@ export default function Home() {
       return;
     }
 
-    const recognition: SpeechRecognition = new SR();
+    const recognition = new SR();
     recognition.lang = "en-US";
     recognition.interimResults = true;
     recognition.continuous = false;
